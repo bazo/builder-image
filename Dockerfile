@@ -5,7 +5,8 @@ ARG TARGETOS
 ARG TARGETPLATFORM
 
 # Uistíme sa, že všetky binárky budú v PATH
-ENV PATH="/usr/local/bin:/usr/bin:/bin:/root/.bun/bin:/usr/local/go/bin:${PATH}"
+ENV GOPATH=/root/go
+ENV PATH="/usr/local/bin:/usr/bin:/bin:/root/.bun/bin:/usr/local/go/bin:${GOPATH}/bin:${PATH}"
 
 # Základné nástroje
 RUN apk add --no-cache bash curl wget git build-base ca-certificates openssl tar
