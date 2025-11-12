@@ -25,8 +25,7 @@ RUN GO_LATEST=$(curl -s https://go.dev/VERSION?m=text | head -n 1) && \
     rm ${GO_LATEST}.${TARGETOS}-${TARGETARCH}.tar.gz && \
     ln -s /usr/local/go/bin/* /usr/local/bin/
 
-RUN go install github.com/GeertJohan/go.rice@latest \
-    && go install github.com/GeertJohan/go.rice/rice@latest
+RUN go install github.com/GeertJohan/go.rice/rice@latest
 
 # --- Overenie inštalácie ---
 RUN echo "✅ Installed:" && \
