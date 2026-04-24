@@ -4,11 +4,11 @@ ARG TARGETARCH
 ARG TARGETOS
 ARG TARGETPLATFORM
 
-# Uistíme sa, že všetky binárky budú v PATH
+# Ensure all binaries are in PATH
 ENV GOPATH=/root/go
 ENV PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/go/bin:${GOPATH}/bin:${PATH}"
 
-# Základné nástroje
+# Base tools
 RUN apk add --no-cache bash curl wget git build-base ca-certificates openssl tar
 
 # --- Node.js (LTS) + npm ---
@@ -19,7 +19,7 @@ RUN curl -fsSL https://bun.sh/install | bash && \
     mv /root/.bun/bin/bun /usr/local/bin/ && \
     rm -rf /root/.bun
 
-# --- Go (vždy najnovšia stabilná verzia pre danú architektúru) ---
+# --- Go (always latest stable version for the target architecture) ---
 RUN GO_LATEST=$(curl -s https://go.dev/VERSION?m=text | head -n 1) && \
     wget -q https://go.dev/dl/${GO_LATEST}.${TARGETOS}-${TARGETARCH}.tar.gz && \
     tar -C /usr/local -xzf ${GO_LATEST}.${TARGETOS}-${TARGETARCH}.tar.gz && \
@@ -28,7 +28,7 @@ RUN GO_LATEST=$(curl -s https://go.dev/VERSION?m=text | head -n 1) && \
 
 RUN go install github.com/GeertJohan/go.rice/rice@latest
 
-# --- Overenie inštalácie ---
+# --- Verify installation ---
 RUN echo "✅ Installed:" && \
     echo "- Node: $(node -v)" && \
     echo "- npm:  $(npm -v)" && \
